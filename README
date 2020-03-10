@@ -60,13 +60,10 @@ Gradle
 - upload a csv file with all the people
 - clic on the booton "Load", if the celebrity is present the application response with a message and the row position of the celebrity in the csv file.
 
-License
-----
+# License
 
-MIT
+Licensed under Apache 2.0. Please see [LICENSE](LICENSE) for details.
 
-Autor
-----
+# Autor
+
 Arcesio Arias
-
-
