@@ -61,13 +61,14 @@ Gradle
 - clic on the booton "Load", if the celebrity is present the application response with a message and the row position of the celebrity in the csv file.
 
 This is an example of the csv file, with the celebrity in the row 5:
-
+```sh
 0,0,0,0,1,0
 0,0,0,0,1,0
 0,0,0,0,1,0
 0,0,0,0,1,0
 0,0,0,0,0,0
 0,0,0,0,1,0
+```
 
 You can find more examples in the resources folders of the application
 
