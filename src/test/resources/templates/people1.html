@@ -1,0 +1,34 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layout/layout" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block layout:fragment="content">
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Add new Student</div>
+                <div class="panel-body">
+
+                    <form target="person/findCelebrity" method="post" >
+                        <!--Content will go inside here.-->
+                        <input class="form-control" type="number" name="rollNo" id="rollNo" maxlength="10"/>
+                        <input type="submit" value="Upload Now">
+                    </form>
+
+                    <form method="post" class="form-group" action="/student">
+                        <div class="form-group">
+                            <label for="rollNo">File Name:&nbsp;</label>
+                            <input class="form-control" type="number" name="pathFile" id="pathFile" maxlength="200"/>
+                        </div>
+
+                        <input class="btn btn-primary" type="submit" value="Save"/>
+
+                    </form>
+                </div>
+                <div class="panel-footer"><span th:text="${message}">Status</span></div>
+            </div>
+        </div>
+
+    </div>
+</th:block>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html layout:decorator="layout/layout" xmlns:th="http://www.thymeleaf.org">
+<body>
+<th:block layout:fragment="content">
+
+    <div class="row">
+        <div class="col-md-4 col-sm-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">Load CSV File</div>
+                <div class="panel-body">
+                    <form method="post" class="form-group" action="/person/findCelebrity" enctype="multipart/form-data">
+
+                        <div class="form-group">
+                            <label for="pathFile">File name:&nbsp;</label>
+                            <input class="form-control" type="file" name="file" id="pathFile" maxlength="50"/>
+                        </div>
+
+                        <input class="btn btn-primary" type="submit" value="Load"/>
+
+                    </form>
+                </div>
+                <div class="panel-footer"><span th:text="${message}">Status</span></div>
+            </div>
+        </div>
+    </div>
+</th:block>
+</body>
+</html>
