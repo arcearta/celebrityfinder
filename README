@@ -1,69 +1,24 @@
-# CelebrityFinder
+# Hello, World (Java/Spring Boot)
 
-This is a Spring Boot application wiht a implementation of algorithm to solve the next problem.
+This is a Java/Spring Boot template for building a microservice in Kubernetes and Docker. This template is designed for use with [Forge](https://forge.sh), [Telepresence](https://www.telepresence.io), and [Ambassador](https://www.getambassador.io).
 
-# Problem :  Find the Celebrity
-Description:
-- In a team of N people, a celebrity is known by everyone but he/she doesn't know anybody.
+# Repository structure
 
-# Rules
-* The celebrity is known by everyone
-* The celebrity doesn´t know anybody
+The main files in this repository are:
 
-# suppositions
-* If the celebrity is pressent is only one.
-* Is possible that the celebrity isn't present.
-* The user can load a external file in format csv with all necessary information.
-* The csv file content an array[n][n] every row contein a person, every column say if this person know the other person in the same position of the colunm.
-* The value 0 say that the person doesn't know the other person.
-* The value 1 say that the person know the other person.
-* The celebrity person
+* `Dockerfile` specifies how the application is built and packaged
+* `k8s/deployment.yaml` contains a templated Kubernetes manifest, with additional annotations for configuring Ambassador
+* `service.yaml` contains values (typically configured by a developer) that will be instantiated into the Kubernetes manifest. This `service.yaml` has also been configured to support [fast incremental container builds with Forge](https://forge.sh/docs/reference/customize-container-builds#enabling-incremental-builds).
+* `src/` contains the actual Java application
 
-### Prerequisites
+# Usage
 
-This application need for building and running:
-
-Java 8 ++
-Gradle
-
-## How can build the application
-- Download the zip or clone the Git repository.
-- Unzip the zip file (if you downloaded one)
-- Open Command Prompt and Change directory (cd) to folder containing gradlew
-- Execute de command "gradlew clean build"
-```sh
-    $ gradlew clean build
-```
-
-## How can run the application
-- Execute de command "gradlew bootrun"
-```sh
-    $ gradlew bootrun
-```
-- Open your broser with the url : http://localhost:8080/person
-
-## How can compile and build the application
-- Execute the next commands
-```sh
-    $ gradlew compile
-    $ gradlew build
-```
-
-## How can run the test
-- Execute de command "gradlew test"
-```sh
-    $ gradlew test
-```
-
-## How can find the celebrity
-- Open your browser with the url : http://localhost:8080/person
-- upload a csv file with all the people
-- clic on the booton "Load", if the celebrity is present the application response with a message and the row position of the celebrity in the csv file.
+* To deploy this service into Kubernetes from source, type `forge deploy`. If you want to expose this service automatically through an API Gateway, make sure you've installed Ambassador first
+* To run this service locally via Telepresence:
+  * Build a local dev environment: `docker build . -t spring-boot-dev-local`
+  * Deploy into Kubernetes, if you haven't already ('forge deploy')
+  * Run Telepresence: `telepresence --swap-deployment hello-spring-master --docker-run --rm -i -t spring-boot-dev-local`
 
 # License
 
 Licensed under Apache 2.0. Please see [LICENSE](LICENSE) for details.
-
-# Autor
-
-Arcesio Arias
