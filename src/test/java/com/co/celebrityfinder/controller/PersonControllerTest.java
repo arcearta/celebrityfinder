@@ -28,7 +28,7 @@ public class PersonControllerTest {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
-        ResponseEntity<String> response = testRestTemplate.exchange("/person/findCelebrity", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = testRestTemplate.exchange("/celebrity/findCelebrity", HttpMethod.POST, entity, String.class, "");
         // Expect Ok
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
@@ -42,7 +42,7 @@ public class PersonControllerTest {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
-        ResponseEntity<String> response = testRestTemplate.exchange("/person/findCelebrity", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = testRestTemplate.exchange("/celebrity/findCelebrity", HttpMethod.POST, entity, String.class, "");
         // Expect celebrity found
         assertEquals(true, response.getBody().contains("Celebrity is present in the row"));
     }
@@ -56,7 +56,7 @@ public class PersonControllerTest {
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
-        ResponseEntity<String> response = testRestTemplate.exchange("/person/findCelebrity", HttpMethod.POST, entity, String.class, "");
+        ResponseEntity<String> response = testRestTemplate.exchange("/celebrity/findCelebrity", HttpMethod.POST, entity, String.class, "");
         // Expect celebrity not found
         assertEquals(true, response.getBody().contains("Celebrity is not present."));
     }

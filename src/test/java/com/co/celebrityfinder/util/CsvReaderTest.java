@@ -11,11 +11,10 @@ public class CsvReaderTest {
     @Test
     public void readCsvFileWith6rowsTest() {
 
-        CsvReader csvReader = new CsvReader();
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWith_celebrity_in_row_5.csv");
         int people[][] = null;
         try {
-            people = csvReader.readFile(fis);
+            people = CsvReader.readFile(fis);
         } catch (IOException e) {
             e.printStackTrace();
         }

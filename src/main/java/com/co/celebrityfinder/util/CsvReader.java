@@ -1,5 +1,7 @@
 package com.co.celebrityfinder.util;
 
+import org.springframework.stereotype.Component;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ import java.util.List;
  */
 public class CsvReader {
 
-    private static String COMMA_DELIMITER=",";
+    private static String COMMA_DELIMITER = ",";
 
     /**
      * This method read read a csv file from the inputstream
@@ -19,7 +21,7 @@ public class CsvReader {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public int [][] readFile(InputStream in) throws FileNotFoundException, IOException {
+    public static int [][] readFile(InputStream in) throws FileNotFoundException, IOException {
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(in, "UTF-8"))) {
             String line;
@@ -48,7 +50,7 @@ public class CsvReader {
      * @throws FileNotFoundException
      * @throws IOException
      */
-    public int [][] readFile(String path) throws FileNotFoundException, IOException {
+    public static int [][] readFile(String path) throws FileNotFoundException, IOException {
         List<List<String>> records = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
             String line;

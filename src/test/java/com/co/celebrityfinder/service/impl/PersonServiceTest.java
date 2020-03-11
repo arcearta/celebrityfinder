@@ -4,7 +4,6 @@ package com.co.celebrityfinder.service.impl;
 import static org.junit.Assert.assertEquals;
 
 import com.co.celebrityfinder.service.dto.PeopleDto;
-import com.co.celebrityfinder.service.impl.PersonService;
 
 import com.co.celebrityfinder.util.CsvReader;
 import com.co.celebrityfinder.util.CsvReaderTest;
@@ -21,8 +20,8 @@ import java.io.InputStream;
 public class PersonServiceTest {
 
     @InjectMocks
-    PersonService personService;
-    PersonService personServiceSpy;
+    CelebrityService personService;
+    CelebrityService personServiceSpy;
 
     CsvReader csvReader;
 
@@ -35,31 +34,23 @@ public class PersonServiceTest {
 
 
     @Test
-    public void celebrityFoundUsingRecursiveMethodTest() throws IOException {
-        InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeople.csv");
-        PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
-        assertEquals(5, personService.findCelebrityRecursive(peopleDto) + 1);
-    }
-
-    @Test
     public void celebrityFoundIn_row_5_FromCsvTest() throws IOException {
          InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeople.csv");
-         PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
-         assertEquals(5, personService.findCelebrity(peopleDto) + 1);
+         assertEquals(5, personService.findCelebrity(fis) + 1);
     }
 
     @Test
     public void celebrityNotFoundFromCsvTest() throws IOException {
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWithout_celebrity.csv");
-        PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
-        assertEquals(-1, personService.findCelebrity(peopleDto));
+
+        assertEquals(-1, personService.findCelebrity(fis));
     }
 
     @Test
     public void celebrityFoundIn_row_0_FromCsvTest() throws IOException {
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWith_celebrity_in_row_0.csv");
-        PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
-        assertEquals(0, personService.findCelebrity(peopleDto));
+
+        assertEquals(0, personService.findCelebrity(fis));
     }
 
 }
