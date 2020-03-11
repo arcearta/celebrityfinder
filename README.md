@@ -1,6 +1,6 @@
 # CelebrityFinder
 
-This is a Spring Boot application wiht a implementation of algorithm to solve the next problem.
+This is a Spring Boot application with an implementation of algorithm to solve the next problem.
 
 # Problem :  Find the Celebrity
 Description:
@@ -8,16 +8,16 @@ Description:
 
 # Rules
 * The celebrity is known by everyone
-* The celebrity doesn´t know anybody
+* The celebrity doesn't know anybody
 
 # suppositions
-* If the celebrity is pressent is only one.
+* If the celebrity is present is only one.
 * Is possible that the celebrity isn't present.
-* The user can load a external file in format csv with all necessary information.
-* The csv file content an array[n][n] every row contein a person, every column say if this person know the other person in the same position of the colunm.
-* The value 0 say that the person doesn't know the other person.
-* The value 1 say that the person know the other person.
-* The celebrity person
+* The user can load an external file in csv format with all necessary information.
+* The csv file content an int array[n][n] every row content a person, every column said if this person know the other person in the same position of the column.
+* The value 0 said that the person doesn't know the other person.
+* The value 1 said that the person know the other person.
+
 
 ### Prerequisites
 
@@ -40,13 +40,12 @@ Gradle
 ```sh
     $ gradlew bootrun
 ```
-- Open your broser with the url : http://localhost:8080/person
+- Open your browser with the url : http://localhost:8080/person
 
-## How can compile and build the application
-- Execute the next commands
+## How can compile the application
+- Execute the next command
 ```sh
     $ gradlew compile
-    $ gradlew build
 ```
 
 ## How can run the test
@@ -56,9 +55,9 @@ Gradle
 ```
 
 ## How can find the celebrity
-- Open your browser with the url : http://localhost:8080/person
-- upload a csv file with all the people
-- clic on the booton "Load", if the celebrity is present the application response with a message and the row position of the celebrity in the csv file.
+- Open your browser with the url: http://localhost:8080/person
+- Upload a csv file with everyone
+- Click in the "Load" Bootton, if the celebrity is present, the application response with a message and the position of the row in the csv file.
 
 This is an example of the csv file, with the celebrity in the row 5:
 ```sh
@@ -70,11 +69,7 @@ This is an example of the csv file, with the celebrity in the row 5:
 0,0,0,0,1,0
 ```
 
-You can find more examples in the resources folders of the application
-
-# License
-
-Licensed under Apache 2.0. Please see [LICENSE](LICENSE) for details.
+You can find more examples in the resources folder (\src\test\resources) of the application
 
 # Autor
 

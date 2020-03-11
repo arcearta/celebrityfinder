@@ -22,7 +22,7 @@ public class PersonControllerTest {
     @Test
     public void testUpload() {
         LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
-        parameters.add("file", new org.springframework.core.io.ClassPathResource("book.csv"));
+        parameters.add("file", new org.springframework.core.io.ClassPathResource("listOfPeople.csv"));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -36,7 +36,7 @@ public class PersonControllerTest {
     @Test
     public void testUploadCsvWithCelebrity() {
         LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
-        parameters.add("file", new org.springframework.core.io.ClassPathResource("book.csv"));
+        parameters.add("file", new org.springframework.core.io.ClassPathResource("listOfPeople.csv"));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);
@@ -50,7 +50,7 @@ public class PersonControllerTest {
     @Test
     public void testUploadCsvWithoutCelebrity() {
         LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
-        parameters.add("file", new org.springframework.core.io.ClassPathResource("not_celebrity.csv"));
+        parameters.add("file", new org.springframework.core.io.ClassPathResource("listOfPeopleWithout_celebrity.csv"));
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.MULTIPART_FORM_DATA);

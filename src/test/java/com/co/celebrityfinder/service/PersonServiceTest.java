@@ -22,7 +22,6 @@ public class PersonServiceTest {
 
     @InjectMocks
     PersonService personService;
-
     PersonService personServiceSpy;
 
     CsvReader csvReader;
@@ -35,22 +34,22 @@ public class PersonServiceTest {
     }
 
     @Test
-    public void findCelebrityInRow5FromCsvTest() throws IOException {
-         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("book.csv");
+    public void celebrityFoundIn_row_5_FromCsvTest() throws IOException {
+         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeople.csv");
          PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
          assertEquals(5, personService.findCelebrity(peopleDto) + 1);
     }
 
     @Test
-    public void notCelebrityFoundTest() throws IOException {
-        InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("not_celebrity.csv");
+    public void celebrityNotFoundFromCsvTest() throws IOException {
+        InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWithout_celebrity.csv");
         PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
         assertEquals(-1, personService.findCelebrity(peopleDto));
     }
 
     @Test
-    public void celebrityFoundIn_0_row_Test() throws IOException {
-        InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("celebrity_0_rows.csv");
+    public void celebrityFoundIn_row_0_FromCsvTest() throws IOException {
+        InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWith_celebrity_in_row_0.csv");
         PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
         assertEquals(0, personService.findCelebrity(peopleDto));
     }
