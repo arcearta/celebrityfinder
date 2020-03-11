@@ -1,4 +1,4 @@
-package com.co.celebrityfinder.service;
+package com.co.celebrityfinder.service.impl;
 
 
 import static org.junit.Assert.assertEquals;
@@ -31,6 +31,14 @@ public class PersonServiceTest {
         MockitoAnnotations.initMocks(this);
         personServiceSpy = Mockito.spy(personService);
         csvReader = new CsvReader();
+    }
+
+
+    @Test
+    public void celebrityFoundUsingRecursiveMethodTest() throws IOException {
+        InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeople.csv");
+        PeopleDto peopleDto = new PeopleDto(csvReader.readFile(fis));
+        assertEquals(5, personService.findCelebrityRecursive(peopleDto) + 1);
     }
 
     @Test

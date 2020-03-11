@@ -45,7 +45,7 @@ Gradle
 ## How can compile the application
 - Execute the next command
 ```sh
-    $ gradlew compile
+    $ gradlew compileJava
 ```
 
 ## How can run the test

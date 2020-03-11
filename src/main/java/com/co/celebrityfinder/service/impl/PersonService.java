@@ -20,6 +20,12 @@ public class PersonService implements IPersonService {
         return this.findCelebrityByStack();
     }
 
+    @Override
+    public int findCelebrityRecursive(final PeopleDto peopleDto) {
+        this.arrayPeople = peopleDto.getArrayOfPeople();
+        return this.findCelebrityRecursive(0,1);
+    }
+
     /**
      * This method check if a person know other person
      * @param personIdA
@@ -41,7 +47,7 @@ public class PersonService implements IPersonService {
      * @param expectedCelebrityId
      * @return the position of the celebrityID if this is present
      */
-     public int findCelebrityRecursive(int personIdA, int expectedCelebrityId) {
+     private int findCelebrityRecursive(int personIdA, int expectedCelebrityId) {
         if(expectedCelebrityId >= this.arrayPeople.length) {
             return personIdA;
         }
@@ -53,9 +59,6 @@ public class PersonService implements IPersonService {
         }
         return personIdA;
     }
-    // Returns -1 if celebrity
-    // is not present. If present,
-    // returns id (value from 0 to n-1).
 
     /**
      * This method find the celebrity using a stack

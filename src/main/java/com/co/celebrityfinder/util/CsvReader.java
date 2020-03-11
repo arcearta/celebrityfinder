@@ -42,7 +42,7 @@ public class CsvReader {
 
 
     /**
-     * This method read read a csv file from the specific path
+     * This method read read a csv file from a specific path
      * @param path
      * @return int array with the information of the persons
      * @throws FileNotFoundException
