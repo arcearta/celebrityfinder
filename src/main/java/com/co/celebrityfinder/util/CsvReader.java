@@ -1,18 +1,11 @@
 package com.co.celebrityfinder.util;
 
-import com.co.celebrityfinder.service.dto.PeopleDto;
-import com.co.celebrityfinder.service.dto.PersonDto;
-import org.springframework.stereotype.Component;
-
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import java.util.stream.Stream;
+
 
 /**
  * This class read a csv file
