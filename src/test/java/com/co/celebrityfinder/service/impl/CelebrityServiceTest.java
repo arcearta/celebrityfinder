@@ -1,11 +1,8 @@
 package com.co.celebrityfinder.service.impl;
 
-
 import static org.junit.Assert.assertEquals;
 
-import com.co.celebrityfinder.service.dto.PeopleDto;
-
-import com.co.celebrityfinder.util.CsvReader;
+import com.co.celebrityfinder.service.dto.PersonDto;
 import com.co.celebrityfinder.util.CsvReaderTest;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,40 +14,37 @@ import org.mockito.MockitoAnnotations;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class PersonServiceTest {
+public class CelebrityServiceTest {
 
     @InjectMocks
     CelebrityService personService;
     CelebrityService personServiceSpy;
 
-    CsvReader csvReader;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         personServiceSpy = Mockito.spy(personService);
-        csvReader = new CsvReader();
     }
 
-
     @Test
-    public void celebrityFoundIn_row_5_FromCsvTest() throws IOException {
+    public void celebrityFoundIn_row_5_FromCsvTest()  {
          InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeople.csv");
-         assertEquals(5, personService.findCelebrity(fis) + 1);
+         PersonDto celebrityPerson = new PersonDto(4);
+         assertEquals(celebrityPerson.getPersonId(), personService.findCelebrity(fis).getPersonId());
     }
 
     @Test
-    public void celebrityNotFoundFromCsvTest() throws IOException {
+    public void celebrityNotFoundFromCsvTest() {
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWithout_celebrity.csv");
-
-        assertEquals(-1, personService.findCelebrity(fis));
+        assert(personService.findCelebrity(fis) == null);
     }
 
     @Test
-    public void celebrityFoundIn_row_0_FromCsvTest() throws IOException {
+    public void celebrityFoundIn_row_0_FromCsvTest()  {
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWith_celebrity_in_row_0.csv");
-
-        assertEquals(0, personService.findCelebrity(fis));
+        PersonDto celebrityPerson = new PersonDto(0);
+        assertEquals(celebrityPerson.getPersonId(), personService.findCelebrity(fis).getPersonId());
     }
 
 }

@@ -2,43 +2,51 @@ package com.co.celebrityfinder.service.impl;
 
 import com.co.celebrityfinder.service.api.ICelebrityService;
 import com.co.celebrityfinder.service.dto.PeopleDto;
+import com.co.celebrityfinder.service.dto.PersonDto;
 import com.co.celebrityfinder.util.CsvReader;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Stack;
 
 
 @Service
 public class CelebrityService implements ICelebrityService {
 
-    private int [][] arrayPeople;
+    private int [][] arrayKnowPeople;
+    private boolean isCelebrity = true;
 
-    private void intputStreamToPopleDto(InputStream fis){
+    /**
+     *
+     * @param fis
+     */
+    private PeopleDto intputStreamToPopleDto(InputStream fis){
         try {
-            PeopleDto peopleDto = new PeopleDto(CsvReader.readFile(fis));
-            this.arrayPeople = peopleDto.getArrayOfPeople();
+            return new PeopleDto(CsvReader.readFile(fis));
         } catch (IOException e) {
             System.out.println("Error: " + e.getMessage());
         }
+        return null;
     }
 
     @Override
-    public int findCelebrity(final InputStream fis) {
-        intputStreamToPopleDto(fis);
+    public PersonDto findCelebrity(final InputStream fis) {
+        PeopleDto peopleDto = intputStreamToPopleDto(fis);
+        this.arrayKnowPeople = peopleDto.getArrayOfPerson();
         return this.findCelebrity();
     }
 
     /**
      * This method check if a person know other person
-     * @param personIdA
-     * @param personIdB
-     * @return true if personIdA know the personIdB else return false
+     * @param personA
+     * @param personB
+     * @return true if personA know the personB else return false
      */
-    private boolean knows(int personIdA, int personIdB)
+    private boolean knows(PersonDto personA, PersonDto personB)
     {
-        boolean res = (this.arrayPeople[personIdA][personIdB] == 1) ?
+        boolean res = (this.arrayKnowPeople[personA.getPersonId()][personB.getPersonId()] == 1) ?
                 true :
                 false;
 
@@ -50,38 +58,44 @@ public class CelebrityService implements ICelebrityService {
      * This method find the celebrity using a stack
      * @return the celebrityId or position in the array of people, if the celebrity is not present return -1
      */
-    private int findCelebrity()
+    private PersonDto findCelebrity()
     {
-        Stack<Integer> stackOfPeople = new Stack<>();
-        int celebrityId;
+        Stack<PersonDto> stackOfPeople = new Stack<>();
 
-        for (int i = 0; i < this.arrayPeople.length; i++)
+        for (int i = 0; i < this.arrayKnowPeople.length; i++)
         {
-            stackOfPeople.push(i);
+            stackOfPeople.push(new PersonDto(i));
         }
 
         while (stackOfPeople.size() > 1)
         {
-             int personIdA = stackOfPeople.pop();
-            int expectedCelebrityId = stackOfPeople.pop();
+            PersonDto personA = stackOfPeople.pop();
+            PersonDto personB = stackOfPeople.pop();
 
-           if (knows(personIdA, expectedCelebrityId)) {
-                stackOfPeople.push(expectedCelebrityId);
+           if (knows(personA, personB)) {
+                stackOfPeople.push(personB);
             } else {
-                stackOfPeople.push(personIdA);
+                stackOfPeople.push(personA);
             }
         }
 
-        celebrityId = stackOfPeople.pop();
+        PersonDto celebrityPerson = stackOfPeople.pop();
 
+        /*Arrays.stream(this.arrayKnowPeople[0]).forEach(personRowID -> { this.
+            PersonDto person = new PersonDto(personRowID);
+            if (personRowID != celebrityPerson.getPersonId() &&  (knows(celebrityPerson, person) || !knows(person, celebrityPerson)))
+                isCelebrity = false;
+        });*/
 
-
-        for (int personId = 0; personId < this.arrayPeople.length; personId++)
+       for (int personId = 0; personId < this.arrayKnowPeople.length; personId++)
         {
-            if (personId != celebrityId && (knows(celebrityId, personId) || !knows(personId, celebrityId)))
-                return -1;
+            PersonDto person = new PersonDto(personId);
+            if (!person.equals(celebrityPerson) && (knows(celebrityPerson, person) || !knows(person, celebrityPerson)))
+                isCelebrity = false;
         }
-        return celebrityId;
+
+        return isCelebrity == true ? celebrityPerson : null;
+
     }
 
 }

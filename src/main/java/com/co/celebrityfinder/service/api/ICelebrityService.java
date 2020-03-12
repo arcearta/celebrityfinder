@@ -1,5 +1,7 @@
 package com.co.celebrityfinder.service.api;
 
+import com.co.celebrityfinder.service.dto.PersonDto;
+
 import java.io.InputStream;
 
 
@@ -13,7 +15,7 @@ public interface ICelebrityService {
      * @param fis InputStream with the csv file
      * @return int with the position in the array of the celebrity or null if the celebrity not exist.
      */
-    int findCelebrity(final InputStream fis);
+    PersonDto findCelebrity(final InputStream fis);
 
 
 }

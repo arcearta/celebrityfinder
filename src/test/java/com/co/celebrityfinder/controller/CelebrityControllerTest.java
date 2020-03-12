@@ -14,7 +14,10 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment= SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class PersonControllerTest {
+public class CelebrityControllerTest {
+
+    public static final String CELEBRITY_IS_PRESENT_IN_THE_ROW = "Celebrity is present in the row";
+    public static final String CELEBRITY_IS_NOT_PRESENT = "Celebrity is not present.";
 
     @Autowired
     private TestRestTemplate testRestTemplate;
@@ -29,12 +32,12 @@ public class PersonControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
         ResponseEntity<String> response = testRestTemplate.exchange("/celebrity/findCelebrity", HttpMethod.POST, entity, String.class, "");
-        // Expect Ok
+
         assertEquals(response.getStatusCode(), HttpStatus.OK);
     }
 
     @Test
-    public void testUploadCsvWithCelebrity() {
+    public void testUploadCsvWithACelebrity() {
         LinkedMultiValueMap<String, Object> parameters = new LinkedMultiValueMap<String, Object>();
         parameters.add("file", new org.springframework.core.io.ClassPathResource("listOfPeople.csv"));
 
@@ -43,8 +46,8 @@ public class PersonControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
         ResponseEntity<String> response = testRestTemplate.exchange("/celebrity/findCelebrity", HttpMethod.POST, entity, String.class, "");
-        // Expect celebrity found
-        assertEquals(true, response.getBody().contains("Celebrity is present in the row"));
+
+        assertEquals(true, response.getBody().contains(CELEBRITY_IS_PRESENT_IN_THE_ROW));
     }
 
     @Test
@@ -57,7 +60,7 @@ public class PersonControllerTest {
 
         HttpEntity<LinkedMultiValueMap<String, Object>> entity = new HttpEntity<LinkedMultiValueMap<String, Object>>(parameters, headers);
         ResponseEntity<String> response = testRestTemplate.exchange("/celebrity/findCelebrity", HttpMethod.POST, entity, String.class, "");
-        // Expect celebrity not found
-        assertEquals(true, response.getBody().contains("Celebrity is not present."));
+
+        assertEquals(true, response.getBody().contains(CELEBRITY_IS_NOT_PRESENT));
     }
 }
