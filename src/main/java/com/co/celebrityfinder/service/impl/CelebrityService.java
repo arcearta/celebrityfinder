@@ -40,9 +40,9 @@ public class CelebrityService implements ICelebrityService {
      * @param personB
      * @return true if personA know the personB else return false
      */
-    private static boolean knows(PeopleDto peopleDto, PersonDto personA, PersonDto personB)
+    private static boolean known(PeopleDto peopleDto, PersonDto personA, PersonDto personB)
     {
-        boolean res = (peopleDto.getArrayOfPerson()[personA.getPersonId()][personB.getPersonId()] == PERSONA_KNOW_THE_PERSONB) ?
+        boolean res = (peopleDto.getArrayOfPersonRelations()[personA.getPersonId()][personB.getPersonId()] == PERSONA_KNOW_THE_PERSONB) ?
                 true :
                 false;
 
@@ -63,7 +63,7 @@ public class CelebrityService implements ICelebrityService {
             PersonDto personA = stackOfPeople.pop();
             PersonDto personB = stackOfPeople.pop();
 
-           if (knows(peopleDto, personA, personB)) {
+           if (known(peopleDto, personA, personB)) {
                 stackOfPeople.push(personB);
             } else {
                 stackOfPeople.push(personA);
@@ -78,7 +78,7 @@ public class CelebrityService implements ICelebrityService {
     private static Stack<PersonDto> createAndFillStack(PeopleDto peopleDto) {
         Stack<PersonDto> stackOfPeople = new Stack<>();
 
-        IntStream.range(0, peopleDto.getArrayOfPerson().length)
+        IntStream.range(0, peopleDto.getArrayOfPersonRelations().length)
                 .forEach(index -> stackOfPeople.push(new PersonDto(index)));
 
         return stackOfPeople;
@@ -86,10 +86,10 @@ public class CelebrityService implements ICelebrityService {
 
     private static boolean checkCelebrityPerson(PeopleDto peopleDto, PersonDto celebrityPerson) {
 
-        for (int personId = 0; personId < peopleDto.getArrayOfPerson().length; personId ++)
+        for (int personId = 0; personId < peopleDto.getArrayOfPersonRelations().length; personId ++)
          {
              PersonDto person = new PersonDto(personId);
-             if (!person.equals(celebrityPerson) && (knows(peopleDto, celebrityPerson, person) || !knows(peopleDto, person, celebrityPerson)))
+             if (!person.equals(celebrityPerson) && (known(peopleDto, celebrityPerson, person) || !known(peopleDto, person, celebrityPerson)))
                  return false;
          }
         return true;

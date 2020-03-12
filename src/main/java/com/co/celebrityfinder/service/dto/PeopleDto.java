@@ -9,14 +9,14 @@ package com.co.celebrityfinder.service.dto;
  */
 public class PeopleDto {
 
-    private int arrayOfPerson[][];
+    private int arrayOfPersonRelations[][];
 
-    public PeopleDto(int arrayOfPerson[][]) {
-        this.arrayOfPerson = arrayOfPerson;
+    public PeopleDto(int arrayOfPersonRelations[][]) {
+        this.arrayOfPersonRelations = arrayOfPersonRelations;
     }
 
-    public int[][] getArrayOfPerson() {
-        return this.arrayOfPerson;
+    public int[][] getArrayOfPersonRelations() {
+        return this.arrayOfPersonRelations;
     }
 
 }
