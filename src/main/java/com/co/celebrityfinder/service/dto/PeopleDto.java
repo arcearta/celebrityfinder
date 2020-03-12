@@ -1,7 +1,7 @@
 package com.co.celebrityfinder.service.dto;
 
 /**
- * This class content the list of people in an array of int values
+ * This class content the list of know person
  * A row is equals to a person
  * A column said if the person know a person in the same row position.
  * O value said if the person not know the other person.
@@ -12,7 +12,6 @@ public class PeopleDto {
     private int arrayOfPerson[][];
 
     public PeopleDto(int arrayOfPerson[][]) {
-
         this.arrayOfPerson = arrayOfPerson;
     }
 
@@ -20,7 +19,4 @@ public class PeopleDto {
         return this.arrayOfPerson;
     }
 
-    public void setArrayOfPeople(int[][] arrayOfPerson) {
-        this.arrayOfPerson = arrayOfPerson;
-    }
 }

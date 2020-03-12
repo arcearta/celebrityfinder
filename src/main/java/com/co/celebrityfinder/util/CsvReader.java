@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -36,15 +37,16 @@ public class CsvReader {
             List<List<String>> lines = br.lines().map(line -> Arrays.asList(line.split(COMMA_DELIMITER))).collect(Collectors.toList());
             int[][] listOfKnowPeople = new int[lines.size()][lines.size()];
 
-            for(int i=0; i<lines.size(); i++) {
-                for(int j=0; j<lines.size(); j++) {
-                    listOfKnowPeople[i][j] = Integer.valueOf(lines.get(i).get(j));
-                }
-            }
+            IntStream.range(0, lines.size())
+                    .forEach(indexX -> {
+                        IntStream.range(0, lines.size())
+                                .forEach(indexY -> {
+                                    listOfKnowPeople[indexX][indexY] = Integer.valueOf(lines.get(indexX).get(indexY));
+                                });
+                    });
 
             return listOfKnowPeople;
         }
-
     }
 
 
@@ -56,24 +58,23 @@ public class CsvReader {
      * @throws IOException
      */
     public static int [][] readFile(String path) throws FileNotFoundException, IOException {
-        List<List<String>> records = new ArrayList<>();
+
         try (BufferedReader br = new BufferedReader(new FileReader(path))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(COMMA_DELIMITER);
-                records.add(Arrays.asList(values));
-            }
+            List<List<String>> lines = br.lines().map(line -> Arrays.asList(line.split(COMMA_DELIMITER))).collect(Collectors.toList());
+            int[][] listOfKnowPeople = new int[lines.size()][lines.size()];
+
+            IntStream.range(0, lines.size())
+                    .forEach(indexX -> {
+                        IntStream.range(0, lines.size())
+                                .forEach(indexY -> {
+                                    listOfKnowPeople[indexX][indexY] = Integer.valueOf(lines.get(indexX).get(indexY));
+                                });
+                    });
+
+            return listOfKnowPeople;
         }
 
-       int persons [][]  = new int[records.size()][records.size()];
-
-        for(int i=0; i<records.size(); i++) {
-            for(int j=0; j<records.size(); j++) {
-                persons[i][j] = Integer.valueOf(records.get(i).get(j));
-            }
-        }
-
-        return persons;
     }
+
 
 }

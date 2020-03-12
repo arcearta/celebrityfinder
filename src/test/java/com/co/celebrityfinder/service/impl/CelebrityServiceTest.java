@@ -11,7 +11,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 
-import java.io.IOException;
 import java.io.InputStream;
 
 public class CelebrityServiceTest {
@@ -31,20 +30,20 @@ public class CelebrityServiceTest {
     public void celebrityFoundIn_row_5_FromCsvTest()  {
          InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeople.csv");
          PersonDto celebrityPerson = new PersonDto(4);
-         assertEquals(celebrityPerson.getPersonId(), personService.findCelebrity(fis).getPersonId());
+         assertEquals(celebrityPerson.getPersonId(), personService.findCelebrityPerson(fis).getPersonId());
     }
 
     @Test
     public void celebrityNotFoundFromCsvTest() {
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWithout_celebrity.csv");
-        assert(personService.findCelebrity(fis) == null);
+        assert(personService.findCelebrityPerson(fis) == null);
     }
 
     @Test
     public void celebrityFoundIn_row_0_FromCsvTest()  {
         InputStream fis = CsvReaderTest.class.getClassLoader().getResourceAsStream("listOfPeopleWith_celebrity_in_row_0.csv");
         PersonDto celebrityPerson = new PersonDto(0);
-        assertEquals(celebrityPerson.getPersonId(), personService.findCelebrity(fis).getPersonId());
+        assertEquals(celebrityPerson.getPersonId(), personService.findCelebrityPerson(fis).getPersonId());
     }
 
 }

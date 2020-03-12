@@ -40,7 +40,7 @@ Gradle
 ```sh
     $ gradlew bootrun
 ```
-- Open your browser with the url : http://localhost:8080/person
+- Open your browser with the url : http://localhost:8080/celebrity
 
 ## How can compile the application
 - Execute the next command
@@ -55,7 +55,7 @@ Gradle
 ```
 
 ## How can find the celebrity
-- Open your browser with the url: http://localhost:8080/person
+- Open your browser with the url: http://localhost:8080/celebrity
 - Upload a csv file with everyone
 - Click in the "Load" Bootton, if the celebrity is present, the application response with a message and the position of the row in the csv file.
 

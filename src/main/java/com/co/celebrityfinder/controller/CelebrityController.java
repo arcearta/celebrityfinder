@@ -53,7 +53,7 @@ public class CelebrityController {
         PersonDto celebrityPerson = null;
 
         try {
-            celebrityPerson = celebrityService.findCelebrity(file.getInputStream());
+            celebrityPerson = celebrityService.findCelebrityPerson(file.getInputStream());
         } catch (IOException e) {
             log.info(e.getMessage());
             messageError = "Error reading the csvFile, please check your file structure:";

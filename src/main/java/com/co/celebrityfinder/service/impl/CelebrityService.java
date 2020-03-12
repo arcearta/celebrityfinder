@@ -8,45 +8,41 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.Stack;
-
+import java.util.logging.Logger;
+import java.util.stream.IntStream;
 
 @Service
 public class CelebrityService implements ICelebrityService {
 
-    private int [][] arrayKnowPeople;
-    private boolean isCelebrity = true;
+    static Logger log = Logger.getLogger(CelebrityService.class.getName());
 
-    /**
-     *
-     * @param fis
-     */
-    private PeopleDto intputStreamToPopleDto(InputStream fis){
+    public static final int PERSONA_KNOW_THE_PERSONB = 1;
+
+    private static PeopleDto intputStreamToPopleDto(InputStream fis){
         try {
             return new PeopleDto(CsvReader.readFile(fis));
         } catch (IOException e) {
-            System.out.println("Error: " + e.getMessage());
+            log.info("Error reading the csv File: " + e.getMessage());
         }
         return null;
     }
 
     @Override
-    public PersonDto findCelebrity(final InputStream fis) {
+    public PersonDto findCelebrityPerson(final InputStream fis) {
         PeopleDto peopleDto = intputStreamToPopleDto(fis);
-        this.arrayKnowPeople = peopleDto.getArrayOfPerson();
-        return this.findCelebrity();
+        return this.findCelebrityPerson(peopleDto);
     }
 
     /**
-     * This method check if a person know other person
+     * This method check if a person A know other person B
      * @param personA
      * @param personB
      * @return true if personA know the personB else return false
      */
-    private boolean knows(PersonDto personA, PersonDto personB)
+    private static boolean knows(PeopleDto peopleDto, PersonDto personA, PersonDto personB)
     {
-        boolean res = (this.arrayKnowPeople[personA.getPersonId()][personB.getPersonId()] == 1) ?
+        boolean res = (peopleDto.getArrayOfPerson()[personA.getPersonId()][personB.getPersonId()] == PERSONA_KNOW_THE_PERSONB) ?
                 true :
                 false;
 
@@ -56,23 +52,18 @@ public class CelebrityService implements ICelebrityService {
 
     /**
      * This method find the celebrity using a stack
-     * @return the celebrityId or position in the array of people, if the celebrity is not present return -1
+     * @return a celebrityPerson, if the celebrity is not present return null
      */
-    private PersonDto findCelebrity()
+    private PersonDto findCelebrityPerson(PeopleDto peopleDto)
     {
-        Stack<PersonDto> stackOfPeople = new Stack<>();
-
-        for (int i = 0; i < this.arrayKnowPeople.length; i++)
-        {
-            stackOfPeople.push(new PersonDto(i));
-        }
+        Stack<PersonDto> stackOfPeople = createAndFillStack(peopleDto);
 
         while (stackOfPeople.size() > 1)
         {
             PersonDto personA = stackOfPeople.pop();
             PersonDto personB = stackOfPeople.pop();
 
-           if (knows(personA, personB)) {
+           if (knows(peopleDto, personA, personB)) {
                 stackOfPeople.push(personB);
             } else {
                 stackOfPeople.push(personA);
@@ -81,21 +72,26 @@ public class CelebrityService implements ICelebrityService {
 
         PersonDto celebrityPerson = stackOfPeople.pop();
 
-        /*Arrays.stream(this.arrayKnowPeople[0]).forEach(personRowID -> { this.
-            PersonDto person = new PersonDto(personRowID);
-            if (personRowID != celebrityPerson.getPersonId() &&  (knows(celebrityPerson, person) || !knows(person, celebrityPerson)))
-                isCelebrity = false;
-        });*/
-
-       for (int personId = 0; personId < this.arrayKnowPeople.length; personId++)
-        {
-            PersonDto person = new PersonDto(personId);
-            if (!person.equals(celebrityPerson) && (knows(celebrityPerson, person) || !knows(person, celebrityPerson)))
-                isCelebrity = false;
-        }
-
-        return isCelebrity == true ? celebrityPerson : null;
-
+        return checkCelebrityPerson(peopleDto, celebrityPerson) ? celebrityPerson : null;
     }
 
+    private static Stack<PersonDto> createAndFillStack(PeopleDto peopleDto) {
+        Stack<PersonDto> stackOfPeople = new Stack<>();
+
+        IntStream.range(0, peopleDto.getArrayOfPerson().length)
+                .forEach(index -> stackOfPeople.push(new PersonDto(index)));
+
+        return stackOfPeople;
+    }
+
+    private static boolean checkCelebrityPerson(PeopleDto peopleDto, PersonDto celebrityPerson) {
+
+        for (int personId = 0; personId < peopleDto.getArrayOfPerson().length; personId ++)
+         {
+             PersonDto person = new PersonDto(personId);
+             if (!person.equals(celebrityPerson) && (knows(peopleDto, celebrityPerson, person) || !knows(peopleDto, person, celebrityPerson)))
+                 return false;
+         }
+        return true;
+    }
 }

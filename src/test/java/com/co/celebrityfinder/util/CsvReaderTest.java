@@ -1,6 +1,8 @@
 package com.co.celebrityfinder.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class CsvReaderTest {
         try {
             people = CsvReader.readFile(fis);
         } catch (IOException e) {
-            e.printStackTrace();
+            fail(e.getMessage());
         }
 
         assertEquals(6, people.length );
